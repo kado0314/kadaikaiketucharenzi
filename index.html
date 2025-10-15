@@ -1,264 +1,445 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generated Website</title>
-  <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Tailwind CSSをロードしているため、カスタムCSSは変数を中心に調整します */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-:root {
-  --primary: #dc2626;
-  --secondary: #b91c1c;
-  --accent: #f87171;
-}
+        :root {
+            /* Red Theme (Default) */
+            --primary: #dc2626; /* Red 600 */
+            --secondary: #b91c1c; /* Red 700 */
+            --accent: #f87171; /* Red 400 */
+            --background-start: var(--primary);
+            --background-end: var(--secondary);
+            --text-color: white;
+            --section-bg: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --header-footer-bg: rgba(0, 0, 0, 0.3);
+            --border-color: var(--accent);
+            --link-color: var(--accent);
+        }
 
-body {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: white;
-  line-height: 1.6;
-}
+        .blue-theme {
+            /* Blue Theme */
+            --primary: #2563eb; /* Blue 600 */
+            --secondary: #1d4ed8; /* Blue 700 */
+            --accent: #60a5fa; /* Blue 400 */
+            --background-start: var(--primary);
+            --background-end: var(--secondary);
+            --border-color: var(--accent);
+            --link-color: var(--accent);
+        }
 
-header {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  padding: 2rem 1rem;
-  text-align: center;
-  border-bottom: 2px solid var(--accent);
-}
+        body {
+            background: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background 0.5s ease;
+        }
 
-.section {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  margin-bottom: 2rem;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
+        header {
+            background: var(--header-footer-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-color);
+        }
 
-button, .btn {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  font-weight: bold;
-}
+        .section {
+            background: var(--section-bg);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
-button:hover, .btn:hover {
-  background: var(--secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-}
+        button, .btn {
+            background: var(--accent);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-h1, h2, h3 {
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  margin-bottom: 1rem;
-}
+        button:hover, .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
+        h1, h2, h3 {
+            color: var(--text-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
 
-a:hover {
-  color: white;
-}
+        a {
+            color: var(--link-color);
+            transition: color 0.3s ease;
+        }
 
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1rem;
-}
+        a:hover {
+            color: white;
+        }
 
-.navigation {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  padding: 1rem 0;
-  margin-bottom: 2rem;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(8px);
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
+        .navigation {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+        }
 
-.navigation a {
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
+        .navigation a {
+            transition: background 0.3s ease, color 0.3s ease;
+        }
 
-.navigation a:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
+        .navigation a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
 
-.card {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
+        .navigation .active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
 
-.card h3 {
-  color: var(--accent);
-  text-shadow: none;
-  margin-bottom: 0.75rem;
-}
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+        }
 
-footer {
-  text-align: center;
-  padding: 1.5rem 1rem;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  margin-top: 2rem;
-  border-top: 2px solid var(--accent);
-}
+        .card h3 {
+            color: var(--link-color);
+            text-shadow: none;
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 1.8rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
-  .navigation {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .navigation a {
-    padding: 0.8rem;
-    text-align: center;
-  }
-  .section {
-    padding: 1.5rem;
-  }
-  .card {
-    padding: 1rem;
-  }
-}
+        footer {
+            background: var(--header-footer-bg);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid var(--border-color);
+        }
 
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.5rem;
-  }
-  h2 {
-    font-size: 1.3rem;
-  }
-  .button, .btn {
-    width: 100%;
-    padding: 10px;
-  }
-  .container {
-    padding: 0.5rem;
-  }
-}
+        /* AI Advisor Specific Styles */
+        #advisor-input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: 1px solid var(--accent);
+            resize: vertical;
+        }
 
-  </style>
+        .advisor-output-area {
+            margin-top: 1.5rem;
+            min-height: 50px;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            white-space: pre-wrap;
+        }
+
+        .loading-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* Custom Modal for Alert Replacement */
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none; /* 初期状態では非表示 */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            text-align: center;
+            border: 3px solid var(--accent);
+        }
+
+    </style>
 </head>
-<body>
-<header class="container">
-    <h1>筋力トレーニングのフォームに関する詳細レポート</h1>
-  </header>
+<body id="body">
+    
+    <!-- Custom Modal Structure -->
+    <div id="custom-alert-modal" class="custom-modal">
+        <div class="modal-content">
+            <h3 class="text-xl mb-4" id="modal-title">メッセージ</h3>
+            <p id="modal-message" class="mb-6">メッセージ本文</p>
+            <button class="btn" onclick="document.getElementById('custom-alert-modal').style.display='none'">閉じる</button>
+        </div>
+    </div>
 
-  <nav class="navigation container">
-    <a href="#importance">フォームの重要性</a>
-    <a href="#tips">習得のヒント</a>
-    <a href="#caution">一般的な注意点</a>
-    <a href="#conclusion">結論</a>
-  </nav>
+    <header class="container mx-auto px-4 py-8 flex justify-between items-center">
+        <h1 class="text-3xl font-bold">筋力トレーニングのフォームに関する詳細レポート</h1>
+        <button id="theme-toggle-btn" class="btn text-sm px-4 py-2 flex items-center gap-2">
+             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-paintbrush"><path d="M18.37 2.63L3.63 17.37a.94.94 0 000 1.32l.74.74a.94.94 0 001.32 0L21.37 5.37a.94.94 0 000-1.32l-.74-.74a.94.94 0 00-1.32 0z"/><path d="M7 14l-3 3.5"/><path d="M10 11l-3 3.5"/><path d="M13 8l-3 3.5"/><path d="M16 5l-3 3.5"/><path d="M17.5 10.5L14 14"/></svg>
+            テーマ変更 (青へ)
+        </button>
+    </header>
 
-  <main class="container">
-    <section id="introduction" class="section">
-      <p>筋力トレーニング（以下、筋トレ）において、適切なフォームは、効果の最大化、怪我のリスク低減、そしてモチベーション維持の三つの主要な側面において極めて重要です。ここでは、なぜフォームが重要なのか、正しいフォームを習得するためのヒント、そして一般的な注意点について詳しく解説します。</p>
-    </section>
+    <nav class="navigation container mx-auto rounded-xl p-4 my-8">
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="#importance" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="importance">フォームの重要性</a>
+            <a href="#tips" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="tips">習得のヒント</a>
+            <a href="#caution" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="caution">一般的な注意点</a>
+            <a href="#ai-advisor" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="ai-advisor">AIフォームアドバイザー</a>
+            <a href="#conclusion" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="conclusion">結論</a>
+        </div>
+    </nav>
 
-    <section id="importance" class="section">
-      <h2>フォームの重要性 💪</h2>
-      <article class="card">
-        <h3>1. ターゲット筋群への効果的な刺激</h3>
-        <p>正しいフォームは、鍛えたい特定の筋肉群に最大限の負荷を集中させることを可能にします。例えば、スクワットで膝がつま先よりも前に出すぎたり、背中が丸まったりすると、大腿四頭筋や臀筋への刺激が減少し、代わりに膝関節や腰部に過度な負担がかかります。これにより、期待する筋力向上や筋肥大の効果が得られにくくなります。</p>
-      </article>
-      <article class="card">
-        <h3>2. 怪我のリスク低減</h3>
-        <p>不適切なフォームは、関節や靭帯、腱、そして脊椎に不必要なストレスをかけ、怪我のリスクを大幅に高めます。例えば、デッドリフトで背中を真っ直ぐに保てない場合、椎間板ヘルニアなどの重篤な腰の怪我につながる可能性があります。適切なフォームで行うことで、身体が持つ本来の可動域内で安全に動作を行うことができ、トレーニングを継続的に行う土台が築かれます。</p>
-      </article>
-      <article class="card">
-        <h3>3. 長期的なパフォーマンス向上</h3>
-        <p>正しいフォームを習得することは、筋肉と神経の連携（神経筋効率）を向上させ、より重い重量を扱えるようになるための基礎となります。最初は軽い重量でも正確なフォームを心がけることで、安定性とコントロールが向上し、結果としてより高いパフォーマンスを発揮できるようになります。</p>
-      </article>
-    </section>
+    <main class="container mx-auto px-4">
+        <section id="introduction" class="section rounded-xl mb-8 p-6">
+            <p>筋力トレーニング（以下、筋トレ）において、適切なフォームは、効果の最大化、怪我のリスク低減、そしてモチベーション維持の三つの主要な側面において極めて重要です。ここでは、なぜフォームが重要なのか、正しいフォームを習得するためのヒント、そして一般的な注意点について詳しく解説します。</p>
+        </section>
 
-    <section id="tips" class="section">
-      <h2>正しいフォームを習得するためのヒント ✨</h2>
-      <article class="card">
-        <h3>1. 軽い重量から始める</h3>
-        <p>新しい種目を始める際や、フォームに自信がない場合は、非常に軽い重量、あるいは自重から始めることが不可欠です。重い重量を扱うことに固執すると、フォームが崩れやすくなり、怪我のリスクが高まります。完全にコントロールできる重量で、動きを正確に反復練習することで、筋肉に正しい動きを覚えさせます。</p>
-      </article>
-      <article class="card">
-        <h3>2. 鏡やビデオを活用する</h3>
-        <p>自分の動きを客観的に観察することは、フォームの自己修正に非常に役立ちます。全身鏡の前でトレーニングしたり、スマートフォンで自分のフォームを撮影したりして、後で確認しましょう。推奨されるフォームと比較することで、改善点を見つけることができます。</p>
-      </article>
-      <article class="card">
-        <h3>3. 専門家の指導を受ける</h3>
-        <p>パーソナルトレーナーや経験豊富な指導者から直接指導を受けることが最も効果的です。専門家は、あなたの体の特徴や可動域を考慮し、個別に最適なフォームを教えてくれます。また、誤った癖を指摘し、その場で修正を促してくれるため、効率的に正しいフォームを習得できます。</p>
-      </article>
-      <article class="card">
-        <h3>4. 筋肉の意識（マインドマッスルコネクション）</h3>
-        <p>動作中に、鍛えたい筋肉がどのように収縮し、伸展しているかを意識することが重要です。これにより、単に重量を動かすだけでなく、ターゲット筋群に負荷が集中している感覚を高めることができます。例えば、ベンチプレスでは胸筋の収縮を感じながらバーを押し上げるように意識します。</p>
-      </article>
-      <article class="card">
-        <h3>5. ウォームアップとクールダウン</h3>
-        <p>十分なウォームアップは、筋肉や関節の柔軟性を高め、適切な可動域を確保するために重要です。これにより、正しいフォームで動作を開始できるようになります。トレーニング後のクールダウンは、筋肉の緊張を和らげ、回復を促進します。</p>
-      </article>
-    </section>
+        <section id="importance" class="section rounded-xl mb-8 p-6">
+            <h2 class="text-2xl font-bold mb-4">フォームの重要性 💪</h2>
+            <article class="card rounded-lg mb-4 p-4">
+                <h3 class="text-lg font-semibold mb-2">1. ターゲット筋群への効果的な刺激</h3>
+                <p>正しいフォームは、鍛えたい特定の筋肉群に最大限の負荷を集中させることを可能にします。例えば、スクワットで膝がつま先よりも前に出すぎたり、背中が丸まったりすると、大腿四頭筋や臀筋への刺激が減少し、代わりに膝関節や腰部に過度な負担がかかります。これにより、期待する筋力向上や筋肥大の効果が得られにくくなります。</p>
+            </article>
+            <article class="card rounded-lg mb-4 p-4">
+                <h3 class="text-lg font-semibold mb-2">2. 怪我のリスク低減</h3>
+                <p>不適切なフォームは、関節や靭帯、腱、そして脊椎に不必要なストレスをかけ、怪我のリスクを大幅に高めます。例えば、デッドリフトで背中を真っ直ぐに保てない場合、椎間板ヘルニアなどの重篤な腰の怪我につながる可能性があります。適切なフォームで行うことで、身体が持つ本来の可動域内で安全に動作を行うことができ、トレーニングを継続的に行う土台が築かれます。</p>
+            </article>
+            <article class="card rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-2">3. 長期的なパフォーマンス向上</h3>
+                <p>正しいフォームを習得することは、筋肉と神経の連携（神経筋効率）を向上させ、より重い重量を扱えるようになるための基礎となります。最初は軽い重量でも正確なフォームを心がけることで、安定性とコントロールが向上し、結果としてより高いパフォーマンスを発揮できるようになります。</p>
+            </article>
+        </section>
 
-    <section id="caution" class="section">
-      <h2>一般的な注意点 ⚠️</h2>
-      <article class="card">
-        <h3>1. 痛みを無視しない</h3>
-        <p>トレーニング中に痛みを感じたら、すぐに動作を中止してください。痛みは、フォームが間違っている、または負荷が高すぎる可能性を示唆しています。無理に続けることは、深刻な怪我につながる可能性があります。</p>
-      </article>
-      <article class="card">
-        <h3>2. 呼吸を意識する</h3>
-        <p>正しい呼吸法もフォームの一部です。一般的に、力を出す時に息を吐き、力を緩める時に息を吸います。呼吸を止めてしまうと、血圧が上昇し、体への負担が増加します。</p>
-      </article>
-      <article class="card">
-        <h3>3. 焦らない</h3>
-        <p>筋トレの成果は一朝一夕で得られるものではありません。正しいフォームを習得し、安全にトレーニングを継続することに焦点を当てましょう。無理なハイペースは怪我の原因となり、長期的なトレーニングの妨げになります。</p>
-      </article>
-    </section>
+        <section id="tips" class="section rounded-xl mb-8 p-6">
+            <h2 class="text-2xl font-bold mb-4">正しいフォームを習得するためのヒント ✨</h2>
+            <article class="card rounded-lg mb-4 p-4">
+                <h3 class="text-lg font-semibold mb-2">1. 軽い重量から始める</h3>
+                <p>新しい種目を始める際や、フォームに自信がない場合は、非常に軽い重量、あるいは自重から始めることが不可欠です。重い重量を扱うことに固執すると、フォームが崩れやすくなり、怪我のリスクが高まります。完全にコントロールできる重量で、動きを正確に反復練習することで、筋肉に正しい動きを覚えさせます。</p>
+            </article>
+            <article class="card rounded-lg mb-4 p-4">
+                <h3 class="text-lg font-semibold mb-2">2. 鏡やビデオを活用する</h3>
+                <p>自分の動きを客観的に観察することは、フォームの自己修正に非常に役立ちます。全身鏡の前でトレーニングしたり、スマートフォンで自分のフォームを撮影したりして、後で確認しましょう。推奨されるフォームと比較することで、改善点を見つけることができます。</p>
+            </article>
+            <article class="card rounded-lg mb-4 p-4">
+                <h3 class="text-lg font-semibold mb-2">3. 専門家の指導を受ける</h3>
+                <p>パーソナルトレーナーや経験豊富な指導者から直接指導を受けることが最も効果的です。専門家は、あなたの体の特徴や可動域を考慮し、個別に最適なフォームを教えてくれます。また、誤った癖を指摘し、その場で修正を促してくれるため、効率的に正しいフォームを習得できます。</p>
+            </article>
+            <article class="card rounded-lg mb-4 p-4">
+                <h3 class="text-lg font-semibold mb-2">4. 筋肉の意識（マインドマッスルコネクション）</h3>
+                <p>動作中に、鍛えたい筋肉がどのように収縮し、伸展しているかを意識することが重要です。これにより、単に重量を動かすだけでなく、ターゲット筋群に負荷が集中している感覚を高めることができます。例えば、ベンチプレスでは胸筋の収縮を感じながらバーを押し上げるように意識します。</p>
+            </article>
+            <article class="card rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-2">5. ウォームアップとクールダウン</h3>
+                <p>十分なウォームアップは、筋肉や関節の柔軟性を高め、適切な可動域を確保するために重要です。これにより、正しいフォームで動作を開始できるようになります。トレーニング後のクールダウンは、筋肉の緊張を和らげ、回復を促進します。</p>
+            </article>
+        </section>
 
-    <section id="conclusion" class="section">
-      <h2>結論 ✅</h2>
-      <p>結論として、筋トレにおけるフォームは、単なる技術的な要素ではなく、効果的なトレーニングと怪我予防の基盤を築く最も重要な要素です。常に正しいフォームを意識し、必要に応じて専門家の助けを借りながら、安全で実りあるトレーニングを継続しましょう。</p>
-      <button onclick="alert('トレーニングを頑張りましょう！');">トレーニング開始！</button>
-    </section>
-  </main>
+        <!-- AIフォームアドバイザーセクション -->
+        <section id="ai-advisor" class="section rounded-xl mb-8 p-6">
+            <h2 class="text-2xl font-bold mb-4">AIフォームアドバイザー 🤖</h2>
+            <p class="mb-4">トレーニングのフォームに関する具体的な疑問や悩みを入力してください。経験豊富なパーソナルトレーナーの視点から、改善のための実践的なアドバイスを提供します。（**AIによるシミュレーション応答です**）</p>
+            <div class="card rounded-lg p-4">
+                <textarea id="advisor-input" rows="4" placeholder="例: スクワットで膝が内側に入ってしまうのはなぜですか？改善方法は？" class="mb-4"></textarea>
+                <button id="advisor-button" class="btn w-full">アドバイスを依頼</button>
+            </div>
+            <div id="advisor-output" class="advisor-output-area">
+                <p class="opacity-70">ここにAIからのアドバイスが表示されます。</p>
+            </div>
+        </section>
 
-  <footer class="container">
-    <p>&copy; 2023 筋力トレーニングフォームレポート</p>
-  </footer>
+        <section id="caution" class="section rounded-xl mb-8 p-6">
+            <h2 class="text-2xl font-bold mb-4">一般的な注意点 ⚠️</h2>
+            <article class="card rounded-lg mb-4 p-4">
+                <h3 class="text-lg font-semibold mb-2">1. 痛みを無視しない</h3>
+                <p>トレーニング中に痛みを感じたら、すぐに動作を中止してください。痛みは、フォームが間違っている、または負荷が高すぎる可能性を示唆しています。無理に続けることは、深刻な怪我につながる可能性があります。</p>
+            </article>
+            <article class="card rounded-lg mb-4 p-4">
+                <h3 class="text-lg font-semibold mb-2">2. 呼吸を意識する</h3>
+                <p>正しい呼吸法もフォームの一部です。一般的に、力を出す時に息を吐き、力を緩める時に息を吸います。呼吸を止めてしまうと、血圧が上昇し、体への負担が増加します。</p>
+            </article>
+            <article class="card rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-2">3. 焦らない</h3>
+                <p>筋トレの成果は一朝一夕で得られるものではありません。正しいフォームを習得し、安全にトレーニングを継続することに焦点を当てましょう。無理なハイペースは怪我の原因となり、長期的なトレーニングの妨げになります。</p>
+            </article>
+        </section>
 
-  <script>
+        <section id="conclusion" class="section rounded-xl mb-8 p-6">
+            <h2 class="text-2xl font-bold mb-4">結論 ✅</h2>
+            <p class="mb-6">結論として、筋トレにおけるフォームは、単なる技術的な要素ではなく、効果的なトレーニングと怪我予防の基盤を築く最も重要な要素です。常に正しいフォームを意識し、必要に応じて専門家の助けを借りながら、安全で実りあるトレーニングを継続しましょう。</p>
+            <!-- alert()はカスタムモーダルに置き換え -->
+            <button class="btn" onclick="showCustomAlert('モチベーションアップ！', 'トレーニングを頑張りましょう！\n正しいフォームが、最高の成果への近道です。')">トレーニング開始！</button>
+        </section>
+    </main>
 
-  </script>
+    <footer class="container mx-auto px-4 py-6 text-center">
+        <p>&copy; 2023 筋力トレーニングフォームレポート</p>
+    </footer>
+
+    <script>
+        // --- ユーティリティ関数と定数 ---
+
+        // カスタムモーダル表示関数
+        function showCustomAlert(title, message) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            document.getElementById('custom-alert-modal').style.display = 'flex';
+        }
+
+        // Exponential Backoff付きFetch関数
+        async function fetchWithRetry(url, options, maxRetries = 5) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response;
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error;
+                    const delay = Math.pow(2, i) * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+        
+        // --- 機能 1: AIフォームアドバイザー ---
+        
+        const advisorInput = document.getElementById('advisor-input');
+        const advisorButton = document.getElementById('advisor-button');
+        const advisorOutput = document.getElementById('advisor-output');
+        const apiKey = ""; // API Key
+
+        const AI_SYSTEM_INSTRUCTION = `
+あなたは世界クラスの筋力トレーニングのパーソナルトレーナーです。
+ユーザーのフォームに関する問題や質問に対し、怪我のリスクを減らし、効果を最大化するための具体的で実践的なアドバイスを日本語で提供してください。
+回答は簡潔に、箇条書きを含めて最大200文字程度にまとめてください。
+`;
+
+        async function getAIAdvice(prompt) {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: {
+                    parts: [{ text: AI_SYSTEM_INSTRUCTION }]
+                },
+            };
+
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            };
+
+            try {
+                const response = await fetchWithRetry(apiUrl, options);
+                const result = await response.json();
+                
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (text) {
+                    return text;
+                } else {
+                    console.error("AI Response Error:", result);
+                    return "アドバイスの生成中にエラーが発生しました。入力内容を確認してください。";
+                }
+            } catch (error) {
+                console.error("API Call Failed:", error);
+                return "サーバーとの通信中にエラーが発生しました。しばらくしてから再度お試しください。";
+            }
+        }
+
+        advisorButton.addEventListener('click', async () => {
+            const prompt = advisorInput.value.trim();
+            if (prompt === "") {
+                showCustomAlert("入力エラー", "フォームに関する質問を入力してください。");
+                return;
+            }
+
+            advisorButton.disabled = true;
+            advisorButton.textContent = '生成中...';
+            advisorOutput.innerHTML = `<div class="loading-text"><svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> AIがフォームをチェックしています...</div>`;
+            
+            const advice = await getAIAdvice(prompt);
+            
+            advisorOutput.textContent = advice;
+            advisorButton.textContent = 'アドバイスを依頼';
+            advisorButton.disabled = false;
+        });
+
+        // --- 機能 2: スクロール連動ナビゲーションハイライト ---
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main section');
+        
+        // IntersectionObserverの設定
+        const observerOptions = {
+            root: null, // ビューポートをルートとする
+            rootMargin: '0px 0px -50% 0px', // ビューポート中央付近で判定
+            threshold: 0 // 50%以上の交差で反応
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const targetId = entry.target.id;
+                const link = document.querySelector(`.nav-link[data-target="${targetId}"]`);
+
+                if (link) {
+                    // 全てのリンクからactiveクラスを削除
+                    navLinks.forEach(l => l.classList.remove('active'));
+
+                    // 現在のセクションがビューポート内に入ったらactiveクラスを追加
+                    if (entry.isIntersecting) {
+                         link.classList.add('active');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // introductionセクションは含めず、ナビゲーションにあるセクションのみを監視
+        document.querySelectorAll('main section:not(#introduction)').forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- 機能 3: テーマ切り替え ---
+
+        const bodyElement = document.getElementById('body');
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        let currentTheme = 'red';
+
+        function toggleTheme() {
+            if (currentTheme === 'red') {
+                bodyElement.classList.add('blue-theme');
+                themeToggleBtn.textContent = 'テーマ変更 (赤へ)';
+                currentTheme = 'blue';
+            } else {
+                bodyElement.classList.remove('blue-theme');
+                themeToggleBtn.textContent = 'テーマ変更 (青へ)';
+                currentTheme = 'red';
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+    </script>
 </body>
 </html>
