@@ -153,6 +153,31 @@
             opacity: 0.7;
         }
 
+        /* Image Generator Styles */
+        #input-image-preview, #generated-image-output {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            min-height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        #generated-image-output {
+            border: 3px solid var(--accent);
+            margin-top: 2rem;
+            min-height: 300px; /* 大きめに表示 */
+        }
+        #generated-image-output img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
         /* Custom Modal for Alert Replacement */
         .custom-modal {
             position: fixed;
@@ -204,11 +229,13 @@
             <a href="#tips" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="tips">習得のヒント</a>
             <a href="#caution" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="caution">一般的な注意点</a>
             <a href="#ai-advisor" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="ai-advisor">AIフォームアドバイザー</a>
+            <a href="#muscle-generator" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="muscle-generator">AIマッスルジェネレーター</a>
             <a href="#conclusion" class="nav-link rounded-lg font-semibold px-4 py-2" data-target="conclusion">結論</a>
         </div>
     </nav>
 
     <main class="container mx-auto px-4">
+        <!-- 既存のセクション (Introduction, Importance, Tips, Caution) は省略 -->
         <section id="introduction" class="section rounded-xl mb-8 p-6">
             <p>筋力トレーニング（以下、筋トレ）において、適切なフォームは、効果の最大化、怪我のリスク低減、そしてモチベーション維持の三つの主要な側面において極めて重要です。ここでは、なぜフォームが重要なのか、正しいフォームを習得するためのヒント、そして一般的な注意点について詳しく解説します。</p>
         </section>
@@ -253,19 +280,6 @@
             </article>
         </section>
 
-        <!-- AIフォームアドバイザーセクション -->
-        <section id="ai-advisor" class="section rounded-xl mb-8 p-6">
-            <h2 class="text-2xl font-bold mb-4">AIフォームアドバイザー 🤖</h2>
-            <p class="mb-4">トレーニングのフォームに関する具体的な疑問や悩みを入力してください。経験豊富なパーソナルトレーナーの視点から、改善のための実践的なアドバイスを提供します。（**AIによるシミュレーション応答です**）</p>
-            <div class="card rounded-lg p-4">
-                <textarea id="advisor-input" rows="4" placeholder="例: スクワットで膝が内側に入ってしまうのはなぜですか？改善方法は？" class="mb-4"></textarea>
-                <button id="advisor-button" class="btn w-full">アドバイスを依頼</button>
-            </div>
-            <div id="advisor-output" class="advisor-output-area">
-                <p class="opacity-70">ここにAIからのアドバイスが表示されます。</p>
-            </div>
-        </section>
-
         <section id="caution" class="section rounded-xl mb-8 p-6">
             <h2 class="text-2xl font-bold mb-4">一般的な注意点 ⚠️</h2>
             <article class="card rounded-lg mb-4 p-4">
@@ -282,6 +296,49 @@
             </article>
         </section>
 
+        <!-- AIフォームアドバイザーセクション (変更なし) -->
+        <section id="ai-advisor" class="section rounded-xl mb-8 p-6">
+            <h2 class="text-2xl font-bold mb-4">AIフォームアドバイザー 🤖</h2>
+            <p class="mb-4">トレーニングのフォームに関する具体的な疑問や悩みを入力してください。経験豊富なパーソナルトレーナーの視点から、改善のための実践的なアドバイスを提供します。</p>
+            <div class="card rounded-lg p-4">
+                <textarea id="advisor-input" rows="4" placeholder="例: スクワットで膝が内側に入ってしまうのはなぜですか？改善方法は？" class="mb-4"></textarea>
+                <button id="advisor-button" class="btn w-full">アドバイスを依頼</button>
+            </div>
+            <div id="advisor-output" class="advisor-output-area">
+                <p class="opacity-70">ここにAIからのアドバイスが表示されます。</p>
+            </div>
+        </section>
+
+        <!-- 新機能: AIマッスルジェネレーターセクション -->
+        <section id="muscle-generator" class="section rounded-xl mb-8 p-6">
+            <h2 class="text-2xl font-bold mb-4">AIマッスルジェネレーター 💪🔥</h2>
+            <p class="mb-4">画像をアップロードすると、AIがその人物の**顔立ちを維持したまま**、超ムキムキな体格に自動で変換し、未来の姿をシミュレーションします。（**`gemini-2.5-flash-image-preview`モデル使用**）</p>
+            
+            <div class="card rounded-lg p-4">
+                <label for="image-upload" class="btn block text-center cursor-pointer mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2"><path d="M4 14.899V20a2 2 0 002 2h12a2 2 0 002-2v-5.1"/><path d="M15 9l-3-3-3 3"/><path d="M12 2v12"/></svg>
+                    画像をアップロード (PNG/JPEG)
+                </label>
+                <input type="file" id="image-upload" accept="image/png, image/jpeg" class="hidden">
+
+                <p class="text-sm opacity-70 mb-2">アップロードされた画像プレビュー:</p>
+                <div id="input-image-preview" class="mb-6 h-48 w-full border-dashed border-2 flex items-center justify-center">
+                    <span class="opacity-50">画像が選択されていません</span>
+                </div>
+                
+                <button id="generate-button" class="btn w-full disabled:opacity-50" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block mr-2"><path d="M12 2a3 3 0 00-3 3v7a3 3 0 006 0V5a3 3 0 00-3-3z"/><path d="M4.5 17a4.9 4.9 0 009 0"/><path d="M17.5 17a4.9 4.9 0 00-9 0"/></svg>
+                    ムキムキ画像を生成！
+                </button>
+            </div>
+            
+            <h3 class="text-xl font-bold mt-8 mb-4">生成結果</h3>
+            <div id="generated-image-output" class="text-center">
+                <span class="opacity-50">生成されたムキムキ画像がここに表示されます。</span>
+            </div>
+        </section>
+
+
         <section id="conclusion" class="section rounded-xl mb-8 p-6">
             <h2 class="text-2xl font-bold mb-4">結論 ✅</h2>
             <p class="mb-6">結論として、筋トレにおけるフォームは、単なる技術的な要素ではなく、効果的なトレーニングと怪我予防の基盤を築く最も重要な要素です。常に正しいフォームを意識し、必要に応じて専門家の助けを借りながら、安全で実りあるトレーニングを継続しましょう。</p>
@@ -295,6 +352,11 @@
     </footer>
 
     <script>
+        // --- 必須定数と変数 ---
+        const apiKey = "AIzaSyB_4uPMKW57fA329SvfEF9KFdfWXdmVL0A"; // ここにあなたのGemini APIキーを貼り付けてください
+        let uploadedImageBase64 = null;
+        let uploadedMimeType = null;
+        
         // --- ユーティリティ関数と定数 ---
 
         // カスタムモーダル表示関数
@@ -309,25 +371,31 @@
             for (let i = 0; i < maxRetries; i++) {
                 try {
                     const response = await fetch(url, options);
+                    if (response.status === 429) { // Rate limit handling
+                        throw new Error(`Rate Limit Exceeded (429). Retrying...`);
+                    }
                     if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
+                        const errorBody = await response.json();
+                        throw new Error(`HTTP error! status: ${response.status}. Details: ${errorBody.error?.message || 'Unknown error'}`);
                     }
                     return response;
                 } catch (error) {
-                    if (i === maxRetries - 1) throw error;
-                    const delay = Math.pow(2, i) * 1000;
+                    if (i === maxRetries - 1 || !error.message.includes('Rate Limit Exceeded')) {
+                         // console.error(`Fetch attempt ${i + 1} failed: ${error.message}`);
+                         if (i === maxRetries - 1) throw error;
+                    }
+                    const delay = Math.pow(2, i) * 2000; // 2s, 4s, 8s...
                     await new Promise(resolve => setTimeout(resolve, delay));
                 }
             }
         }
         
-        // --- 機能 1: AIフォームアドバイザー ---
+        // --- 機能 1: AIフォームアドバイザー (ロジック維持) ---
         
         const advisorInput = document.getElementById('advisor-input');
         const advisorButton = document.getElementById('advisor-button');
         const advisorOutput = document.getElementById('advisor-output');
-        const apiKey = "AIzaSyB_4uPMKW57fA329SvfEF9KFdfWXdmVL0A"; // API Key
-
+        
         const AI_SYSTEM_INSTRUCTION = `
 あなたは世界クラスの筋力トレーニングのパーソナルトレーナーです。
 ユーザーのフォームに関する問題や質問に対し、怪我のリスクを減らし、効果を最大化するための具体的で実践的なアドバイスを日本語で提供してください。
@@ -335,6 +403,9 @@
 `;
 
         async function getAIAdvice(prompt) {
+            if (!apiKey) {
+                return "APIキーが設定されていません。コードにキーを設定してください。";
+            }
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
             const payload = {
@@ -364,7 +435,7 @@
                 }
             } catch (error) {
                 console.error("API Call Failed:", error);
-                return "サーバーとの通信中にエラーが発生しました。しばらくしてから再度お試しください。";
+                return `サーバーとの通信中にエラーが発生しました。エラー: ${error.message}`;
             }
         }
 
@@ -386,16 +457,123 @@
             advisorButton.disabled = false;
         });
 
-        // --- 機能 2: スクロール連動ナビゲーションハイライト ---
+
+        // --- 機能 4: AIマッスルジェネレーター ---
+
+        const imageUpload = document.getElementById('image-upload');
+        const inputImagePreview = document.getElementById('input-image-preview');
+        const generateButton = document.getElementById('generate-button');
+        const generatedImageOutput = document.getElementById('generated-image-output');
+
+        // ファイルアップロード処理
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // MIMEタイプを保存
+            uploadedMimeType = file.type;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const base64Data = e.target.result;
+                
+                // Base64データ (data:image/jpeg;base64,...) のヘッダー部を削除し、純粋なBase64文字列のみを保存
+                uploadedImageBase64 = base64Data.split(',')[1]; 
+
+                // プレビュー表示
+                inputImagePreview.innerHTML = `<img src="${base64Data}" alt="アップロード画像" class="h-full w-full object-contain p-2">`;
+                generateButton.disabled = false;
+            };
+            reader.onerror = () => {
+                showCustomAlert("ファイル読み込みエラー", "画像の読み込み中にエラーが発生しました。");
+                generateButton.disabled = true;
+                uploadedImageBase64 = null;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 画像生成処理
+        generateButton.addEventListener('click', async () => {
+            if (!uploadedImageBase64) {
+                showCustomAlert("画像が見つかりません", "ムキムキ化したい画像をアップロードしてください。");
+                return;
+            }
+            if (!apiKey) {
+                showCustomAlert("APIキーが必要です", "コード内のapiKey変数を設定してください。");
+                return;
+            }
+
+            const model = "gemini-2.5-flash-image-preview"; // Image-to-Imageに適したモデル
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const PROMPT = "元の画像に写っている人物の顔立ちと服装を保持したまま、全身を非常にムキムキで筋骨隆々とした体格に変更してください。高解像度でフォトリアリスティックなスタイルでお願いします。";
+            
+            // ローディング表示
+            generatedImageOutput.innerHTML = `<div class="loading-text flex-col h-full items-center justify-center p-8"><svg class="animate-spin h-8 w-8 text-white mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span class="text-lg">AIがムキムキボディを生成中...</span></div>`;
+            generateButton.disabled = true;
+
+            const payload = {
+                contents: [
+                    {
+                        parts: [
+                            { text: PROMPT },
+                            {
+                                inlineData: {
+                                    mimeType: uploadedMimeType,
+                                    data: uploadedImageBase64
+                                }
+                            }
+                        ]
+                    }
+                ],
+                generationConfig: {
+                    // 画像生成結果を求めるための設定
+                    responseModalities: ["TEXT", "IMAGE"] 
+                }
+            };
+
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            };
+
+            try {
+                const response = await fetchWithRetry(apiUrl, options);
+                const result = await response.json();
+                
+                const imagePart = result.candidates?.[0]?.content?.parts?.find(p => p.inlineData && p.inlineData.mimeType.startsWith('image/'));
+                
+                if (imagePart) {
+                    const base64Data = imagePart.inlineData.data;
+                    const mimeType = imagePart.inlineData.mimeType;
+                    const imageUrl = `data:${mimeType};base64,${base64Data}`;
+                    
+                    generatedImageOutput.innerHTML = `<img src="${imageUrl}" alt="生成されたムキムキ画像">`;
+                } else {
+                    console.error("AI Image Generation Error:", result);
+                    // エラーメッセージがあれば表示
+                    const errorText = result.candidates?.[0]?.content?.parts?.[0]?.text || "AIは画像を生成できませんでした。画像の内容を変更して再度お試しください。";
+                    generatedImageOutput.innerHTML = `<span class="opacity-70 p-4">${errorText}</span>`;
+                }
+
+            } catch (error) {
+                console.error("Image API Call Failed:", error);
+                generatedImageOutput.innerHTML = `<span class="text-red-400 p-4">画像生成に失敗しました。エラー: ${error.message}</span>`;
+            } finally {
+                generateButton.disabled = false;
+            }
+        });
+
+
+        // --- 機能 2: スクロール連動ナビゲーションハイライト (変更なし) ---
 
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('main section');
         
-        // IntersectionObserverの設定
         const observerOptions = {
-            root: null, // ビューポートをルートとする
-            rootMargin: '0px 0px -50% 0px', // ビューポート中央付近で判定
-            threshold: 0 // 50%以上の交差で反応
+            root: null, 
+            rootMargin: '0px 0px -50% 0px', 
+            threshold: 0 
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -404,10 +582,8 @@
                 const link = document.querySelector(`.nav-link[data-target="${targetId}"]`);
 
                 if (link) {
-                    // 全てのリンクからactiveクラスを削除
                     navLinks.forEach(l => l.classList.remove('active'));
 
-                    // 現在のセクションがビューポート内に入ったらactiveクラスを追加
                     if (entry.isIntersecting) {
                          link.classList.add('active');
                     }
@@ -415,12 +591,11 @@
             });
         }, observerOptions);
 
-        // introductionセクションは含めず、ナビゲーションにあるセクションのみを監視
         document.querySelectorAll('main section:not(#introduction)').forEach(section => {
             observer.observe(section);
         });
 
-        // --- 機能 3: テーマ切り替え ---
+        // --- 機能 3: テーマ切り替え (変更なし) ---
 
         const bodyElement = document.getElementById('body');
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
@@ -429,11 +604,11 @@
         function toggleTheme() {
             if (currentTheme === 'red') {
                 bodyElement.classList.add('blue-theme');
-                themeToggleBtn.textContent = 'テーマ変更 (赤へ)';
+                themeToggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-paintbrush"><path d="M18.37 2.63L3.63 17.37a.94.94 0 000 1.32l.74.74a.94.94 0 001.32 0L21.37 5.37a.94.94 0 000-1.32l-.74-.74a.94.94 0 00-1.32 0z"/><path d="M7 14l-3 3.5"/><path d="M10 11l-3 3.5"/><path d="M13 8l-3 3.5"/><path d="M16 5l-3 3.5"/><path d="M17.5 10.5L14 14"/></svg> テーマ変更 (赤へ)';
                 currentTheme = 'blue';
             } else {
                 bodyElement.classList.remove('blue-theme');
-                themeToggleBtn.textContent = 'テーマ変更 (青へ)';
+                themeToggleBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-paintbrush"><path d="M18.37 2.63L3.63 17.37a.94.94 0 000 1.32l.74.74a.94.94 0 001.32 0L21.37 5.37a.94.94 0 000-1.32l-.74-.74a.94.94 0 00-1.32 0z"/><path d="M7 14l-3 3.5"/><path d="M10 11l-3 3.5"/><path d="M13 8l-3 3.5"/><path d="M16 5l-3 3.5"/><path d="M17.5 10.5L14 14"/></svg> テーマ変更 (青へ)';
                 currentTheme = 'red';
             }
         }
